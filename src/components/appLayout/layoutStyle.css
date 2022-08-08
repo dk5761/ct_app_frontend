@@ -1,11 +1,17 @@
 .app-bar-container {
-    height: 80px;
-    width: 100%;
-    min-width: 100%;
-    min-height: 70px;
-    max-height: 80px;
+    display: flex;
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
     padding-left: 10px;
     padding-right: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: aqua;
+    align-items: center;
 }
 
 .app-bar-title-text {
@@ -20,6 +26,12 @@
 
 .main-container {
     display: flex;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 40px);
     background-color: red;
+}
+
+
+.appLayout-main {
+    height: calc(100vh - 40px);
+    ;
 }

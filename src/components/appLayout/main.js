@@ -1,6 +1,6 @@
 
 import React from 'react'
-
+import './layoutStyle.css'
 
 const Main = ({ children }) => {
     return (
