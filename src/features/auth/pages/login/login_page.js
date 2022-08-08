@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import CustomTextField from "../../../../components/customTextField/customTextField";
+import './login_page.css'
 
 const LoginScreen = () => {
+
+    const [csslId, setCsslId] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleOnSubmit = ()=>{
+        console.log(csslId, password)
+        // do the auth redux thing
+    }
+
+ 
     return <div className="login-container">
-        <label>Cssl Id</label>
-        <input type={"text"} />
-        <label>password</label>
-        <input type={"text"} />
-        <button>Submit</button>
+        <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={setCsslId}/>
+        <CustomTextField labelText={"Password"} value={password} handleOnChange={setPassword}/>
+        <button className="btn-class" onClick={handleOnSubmit}>Submit</button>
     </div>
 }
 
