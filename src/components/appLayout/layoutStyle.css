@@ -1,0 +1,25 @@
+.app-bar-container {
+    height: 80px;
+    width: 100%;
+    min-width: 100%;
+    min-height: 70px;
+    max-height: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.app-bar-title-text {
+    font-size: 22;
+    font-weight: bolder;
+}
+
+.app-bar-button {
+    max-width: 120px;
+    height: 90%;
+}
+
+.main-container {
+    display: flex;
+    height: calc(100vh - 80px);
+    background-color: red;
+}
