@@ -4,7 +4,7 @@ const API_URL = "http://localhost:8081/excel/";
 
 
 const getFridayTask = async () => {
-    try {
+    try { 
         return await axios.getUri(API_URL + "getAnalystData").data;
 
     } catch (error) {
@@ -42,10 +42,10 @@ const updateFridayTask = async (id, data) => {
 
 
 
-const fridayTaskService = {
+const analystWowService = {
     getFridayTask,
     createFridayTask,
     updateFridayTask,
 };
 
-export default fridayTaskService;
+export default analystWowService;

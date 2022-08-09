@@ -1,16 +1,21 @@
 import './layoutStyle.css'
-import React, { useState } from 'react'
+import React from 'react'
+import authService from '../../features/auth/service/authService'
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from 'react-router-dom';
+import { userSelector, logOut } from '../../features/auth/auth_slice';
 
 const AppBar = () => {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    const handleOnLoginClick = () => {
-        console.log("handleLoginClick clicked")
-    }
+    
+    const {isAuthenticated} = useSelector(userSelector)
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
 
     const handleOnLogoutClick = () => {
-        console.log("handleOnLogoutClick clicked")
+        dispatch(logOut())
+        navigate('/login')
     }
 
     return <div className='app-bar-container'>
@@ -20,9 +25,8 @@ const AppBar = () => {
 
         {
             isAuthenticated ?
-                <button onClick={handleOnLoginClick} className='app-bar-button'> Login </button>
-                :
-                <button onClick={handleOnLogoutClick} className='app-bar-button'> Logout </button>
+                <button onClick={handleOnLogoutClick} className='app-bar-button'> Logout </button>:
+                <div></div>
         }
 
     </div>
