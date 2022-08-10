@@ -6,10 +6,9 @@ export const loginUser = createAsyncThunk(
     async ({ email, password }, thunkAPI) => {
       try {
         const response = await authService.login(email, password);
-        console.log("tiwasd", response);
         return response.data
       } catch (e) {
-        console.log('Error', e.response.data);
+       
         thunkAPI.rejectWithValue(e.response.data);
       }
     }

@@ -4,7 +4,7 @@ import './analyst_wow_style.css'
 import { useDispatch, useSelector } from "react-redux";
 // import { clearState, loginUser, userSelector } from "../../auth_slice";
 import { useNavigate } from 'react-router-dom';
-import { analystSelector, createFridayTask } from "../analyst_wow_slice";
+import { analystSelector, createAnalystTask } from "../analyst_wow_slice";
 
 const AnalystCreatePage = () => {
 
@@ -44,7 +44,7 @@ const AnalystCreatePage = () => {
             coverage
         }
 
-        dispatch(createFridayTask(excelLink, range));
+        dispatch(createAnalystTask(excelLink, range));
 
         
     }

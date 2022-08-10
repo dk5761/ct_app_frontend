@@ -4,12 +4,7 @@ import AppBar from './appBar'
 import Main from './main'
 
 const AppLayout = ({ children }) => {
-
-
-
-    return <div className='appLayout-main'>{
-        console.log(children)
-    }
+    return <div className='appLayout-main'>
         <AppBar />
         <Main>
             {

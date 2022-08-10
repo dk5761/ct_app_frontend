@@ -1,13 +1,18 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/excel/";
+const API_URL = "http://localhost:3001/excel/";
 
 // set headers for the service usage.
-
-
-const getFridayTask = async () => {
+const getAnalystTask = async (token) => {
     try { 
-        return await axios.getUri(API_URL + "getAnalystData").data;
+
+        console.log("this is token : ",token)
+        return await axios.get(API_URL + "getExcel", {
+            headers: {
+                Authorization : token
+            }
+        });
+        
 
     } catch (error) {
         console.log(error);
@@ -15,7 +20,7 @@ const getFridayTask = async () => {
     }
 };
 
-const createFridayTask = async (excelLink, range) => {
+const createAnalystTask = async (excelLink, range) => {
     try {
         return await axios.post(API_URL + "createExcel", {
             excelLink, range
@@ -26,7 +31,7 @@ const createFridayTask = async (excelLink, range) => {
     }
 };
 
-const updateFridayTask = async (id, data) => {
+const updateAnalystTask = async (id, data) => {
     try {
         return await axios
             .put(API_URL + "updateExcel", {
@@ -45,9 +50,9 @@ const updateFridayTask = async (id, data) => {
 
 
 const analystWowService = {
-    getFridayTask,
-    createFridayTask,
-    updateFridayTask,
+    getAnalystTask,
+    createAnalystTask,
+    updateAnalystTask,
 };
 
 export default analystWowService;

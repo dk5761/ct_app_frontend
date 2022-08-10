@@ -1,25 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import analystWowService from './service/analystWowService';
+import {store} from '../../app/store'
 
-export const getFridayTask = createAsyncThunk(
-    'analystWOW/getFridayTask', 
+
+export const getAnalystTask = createAsyncThunk(
+    'analystWOW/getAnalystTask', 
     async (_, thunkAPI) => {
       try {
-        const response = await analystWowService.getFridayTask();
+        const reduxStore =  store.getState();
+        
+        const response = await analystWowService.getAnalystTask(reduxStore.user.token);
         console.log("tiwasd", response);
         return response.data
       } catch (e) {
-        console.log('Error', e.response.data);
+        console.log(e)
         thunkAPI.rejectWithValue(e.response.data);
       }
     }
   );
 
-  export const updateFridayTask = createAsyncThunk(
-    'analystWOW/updateFridayTask',
+  export const updateAnalystTask = createAsyncThunk(
+    'analystWOW/updateAnalystTask',
     async ({ id, data }, thunkAPI) => {
       try {
-        const response = await analystWowService.updateFridayTask(id, data);
+        const response = await analystWowService.updateAnalystTask(id, data);
         console.log("tiwasd", response);
         return response.data
       } catch (e) {
@@ -29,11 +33,11 @@ export const getFridayTask = createAsyncThunk(
     }
   );
 
-  export const createFridayTask = createAsyncThunk(
-    'analystWOW/createFridayTask',
+  export const createAnalystTask = createAsyncThunk(
+    'analystWOW/createAnalystTask',
     async ({ link, range }, thunkAPI) => {
       try {
-        const response = await analystWowService.createFridayTask(link, range);
+        const response = await analystWowService.createAnalystTask(link, range);
         console.log("tiwasd", response);
         return response.data
       } catch (e) {
@@ -66,38 +70,40 @@ export const analystSlice = createSlice({
     },
     extraReducers:
      {
-      [updateFridayTask.fulfilled]: (state, { payload }) => {
+      [updateAnalystTask.fulfilled]: (state, { payload }) => {
         console.log('payload', payload);
         
         state.isFetching = false;
         state.isSuccess = true;
 
       },
-      [updateFridayTask.pending]: (state) => {
+      [updateAnalystTask.pending]: (state) => {
         state.isFetching = true;
 
       },
-      [updateFridayTask.rejected]: (state, { payload }) => {
+      [updateAnalystTask.rejected]: (state, { payload }) => {
         state.isFetching = false;
         state.isError = true;
         state.errorMessage = payload.message;
 
       },
-      [getFridayTask.fulfilled]: (state, { payload }) => {
+      [getAnalystTask.fulfilled]: (state, { payload }) => {
+
+        payload.range = JSON.parse(payload.range)
         state.fridayTask = payload;
         
         state.isFetching = false;
         state.isSuccess = true;
         return state;
       },
-      [getFridayTask.rejected]: (state, { payload }) => {
+      [getAnalystTask.rejected]: (state, { payload }) => {
         console.log('payload', payload);
         state.isFetching = false;
         state.isError = true;
 
-        state.errorMessage = payload.message;
+        state.errorMessage = payload;
       },
-      [getFridayTask.pending]: (state) => {
+      [getAnalystTask.pending]: (state) => {
         state.isFetching = true;
 
       },
