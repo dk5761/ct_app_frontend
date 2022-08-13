@@ -1,9 +1,9 @@
 import './customTextField.css'
 
 
-const CustomTextField = ({labelText, value, handleOnChange}) =>{
+const CustomTextField = ({ labelText, value, handleOnChange, ...rest }) => {
     return <>
-        <input type="text" placeholder={labelText} value={value} onChange={(evt) => handleOnChange(evt.target.value)}/>
+        <input type="text" placeholder={labelText} value={value} onChange={handleOnChange} {...rest} />
     </>
 }
 

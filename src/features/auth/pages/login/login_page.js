@@ -7,43 +7,41 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginScreen = () => {
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [csslId, setCsslId] = useState("");
-    const [password, setPassword] = useState("");
-    const {  isSuccess, isError, } = useSelector(
-        userSelector
-      );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [csslId, setCsslId] = useState("");
+  const [password, setPassword] = useState("");
+  const { isSuccess, isError, } = useSelector(
+    userSelector
+  );
 
-   
 
-    const handleOnSubmit = ()=>{
-        console.log(csslId, password)
-        dispatch(loginUser({
-            email: csslId,
-            password: password
-        }))
-        // do the auth redux thing
+
+  const handleOnSubmit = () => {
+    dispatch(loginUser({
+      email: csslId,
+      password: password
+    }))
+    // do the auth redux thing
+  }
+
+  useEffect(() => {
+    if (isError) {
+      dispatch(clearState());
     }
 
-    useEffect(() => {
-        if (isError) {
-          dispatch(clearState());
-        }
-    
-        if (isSuccess) {
-          dispatch(clearState());
-          console.log("sucess")
-          navigate('/')
-        }
-      }, [isError, isSuccess]);
+    if (isSuccess) {
+      dispatch(clearState());
+      navigate('/')
+    }
+  }, [isError, isSuccess]);
 
- 
-    return <div className="login-container">
-        <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={setCsslId}/>
-        <CustomTextField labelText={"Password"} value={password} handleOnChange={setPassword}/>
-        <button className="btn-class" onClick={handleOnSubmit}>Submit</button>
-    </div>
+
+  return <div className="login-container">
+    <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={(evt) => setCsslId(evt.target.value)} />
+    <CustomTextField labelText={"Password"} value={password} handleOnChange={(evt) => setPassword(evt.target.value)} />
+    <button className="btn-class" onClick={handleOnSubmit}>Submit</button>
+  </div>
 }
 
 export default LoginScreen;
