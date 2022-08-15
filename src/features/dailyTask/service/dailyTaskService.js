@@ -1,11 +1,18 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/dtask/";
+const API_URL = "http://localhost:3001/dtask/";
 
 
-const getDailyTask = async () => {
+const getDailyTask = async (token) => {
     try {
-        return await axios.getUri(API_URL + "getAllTask").data;
+
+        return await axios({
+            method: 'GET',
+            url: API_URL + "getAllTask",
+            headers: {
+                Authorization: token
+            }
+        })
 
     } catch (error) {
         console.log(error);
@@ -13,24 +20,34 @@ const getDailyTask = async () => {
     }
 };
 
-const createDailyTask = async (title, imageUrl, url) => {
+const createDailyTask = async ({ title, imageUrl, url }, token) => {
     try {
-        return await axios.post(API_URL + "createDTask", {
-            title, imageUrl, url
-        }).data;
+        return await axios({
+            method: 'POST',
+            url: API_URL + "createDTask",
+            data: { title, imageUrl, url },
+            headers: {
+                Authorization: token
+            }
+        })
+
+
     } catch (error) {
         console.log(error);
         throw Error(error.message);
     }
 };
 
-const updateDailyTask = async (id, data) => {
+const updateDailyTask = async ({ id, data }, token) => {
     try {
-        return await axios
-            .put(API_URL + "updateDTask", {
-                id,
-                data,
-            }).data;
+        return await axios({
+            method: 'PUT',
+            url: API_URL + "updateDTask",
+            data: { id, data },
+            headers: {
+                Authorization: token
+            }
+        })
 
     } catch (error) {
         console.log(error);

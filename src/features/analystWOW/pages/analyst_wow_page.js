@@ -2,20 +2,18 @@ import React, { useCallback, useEffect, useState } from "react";
 import CustomTextField from "../../../components/customTextField/customTextField";
 import './analyst_wow_style.css'
 import { useDispatch, useSelector } from "react-redux";
-// import { clearState, loginUser, userSelector } from "../../auth_slice";
-import { useNavigate } from 'react-router-dom';
-import { analystSelector, getAnalystTask, getAnalystWOW, updateAnalystTask, updateAnalystWOW } from "../analyst_wow_slice";
+import { analystSelector, getAnalystWOW, updateAnalystWOW } from "../analyst_wow_slice";
 
-const AnalystUpdatePage = () => {
+const AnalystPage = () => {
 
   const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  const { isError, isFetching, isSuccess, fridayTask } = useSelector(
+  const { isSuccess, analystData } = useSelector(
     analystSelector
   );
 
-  console.log(fridayTask)
+  console.log(analystData)
 
   const [excelLink, setExcelLink] = useState("");
   const [editing, setEditing] = useState(false);
@@ -60,20 +58,20 @@ const AnalystUpdatePage = () => {
 
   useEffect(() => {
 
-    if (fridayTask === null) {
+    if (analystData === null) {
       dispatch(getAnalystWOW())
     } else {
 
-      setExcelLink(fridayTask.excelLink)
-      setRange(fridayTask.range)
+      setExcelLink(analystData.excelLink)
+      setRange(analystData.range)
 
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess, fridayTask]);
+  }, [isSuccess, analystData]);
 
 
-  return fridayTask === null ? <div>
+  return analystData === null && isSuccess === false ? <div>
     Loading
   </div> :
     <div className="analyst-container">
@@ -109,4 +107,4 @@ const AnalystUpdatePage = () => {
     </div>
 }
 
-export default AnalystUpdatePage;
+export default AnalystPage;

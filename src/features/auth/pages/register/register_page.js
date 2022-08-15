@@ -37,7 +37,7 @@ const RegisterScreen = () => {
       dispatch(clearState());
       navigate('/')
     }
-  }, [isError, isSuccess]);
+  }, [isError, isSuccess, dispatch]);
 
 
 

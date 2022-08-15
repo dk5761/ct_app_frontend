@@ -1,0 +1,10 @@
+.dailyTask-container {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.btn-class {
+    margin: 20px;
+}

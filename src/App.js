@@ -6,8 +6,10 @@ import RegisterScreen from './features/auth/pages/register/register_page';
 import PrivateRoute from './components/privateRoute/privateRoute';
 import RouteHolder from './features/routeHolder/pages/routeHolder';
 import AppLayout from './components/appLayout/appLayout';
-import AnalystUpdatePage from './features/analystWOW/pages/update_analyst_wow_page';
-import AnalystCreatePage from './features/analystWOW/pages/create_analyst_wow_page';
+import AnalystPage from './features/analystWOW/pages/analyst_wow_page';
+import FridayTaskPage from './features/fridayTask/pages/friday_task_page';
+import DailyTaskPageList from './features/dailyTask/pages/daily_task_page_list';
+import DailyTaskPage from './features/dailyTask/pages/daily_task_page';
 
 
 function App() {
@@ -22,11 +24,13 @@ function App() {
           <Route exact path='/' element={<PrivateRoute />}>
             <Route exact path='/' element={<RouteHolder />} />
             {/* excel routes */}
-            <Route path='excel/update' element={<AnalystUpdatePage />} />
-            <Route path='excel/create' element={<AnalystCreatePage />} />
-            <Route path='excel/delete' element={<AnalystCreatePage />} />
+            <Route path='analyst' element={<AnalystPage />} />
             {/* friday task routes */}
+            <Route path='fridayTask' element={<FridayTaskPage />} />
             {/* daily task routes */}
+            <Route path='dailyTask' element={<DailyTaskPageList />} />
+            <Route path='dailyTask/:id' element={<DailyTaskPage />} />
+
 
 
           </Route>

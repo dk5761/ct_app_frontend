@@ -1,11 +1,18 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/ftask/";
+const API_URL = "http://localhost:3001/ftask/";
 
 
-const getFridayTask = async () => {
+const getFridayTask = async (token) => {
     try {
-        return await axios.getUri(API_URL + "getFTask").data;
+
+        return await axios({
+            method: 'GET',
+            url: API_URL + "getFTask",
+            headers: {
+                Authorization: token
+            }
+        })
 
     } catch (error) {
         console.log(error);
@@ -17,20 +24,24 @@ const createFridayTask = async (recording, presentation, agedCases) => {
     try {
         return await axios.post(API_URL + "createFTask", {
             recording, presentation, agedCases
-        }).data;
+        });
     } catch (error) {
         console.log(error);
         throw Error(error.message);
     }
 };
 
-const updateFridayTask = async (data) => {
+const updateFridayTask = async (data, token) => {
     try {
         return await axios
             .put(API_URL + "updateFTask", {
 
                 data,
-            }).data;
+            }, {
+                headers: {
+                    Authorization: token
+                }
+            });
 
     } catch (error) {
         console.log(error);

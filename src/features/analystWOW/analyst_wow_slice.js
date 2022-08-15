@@ -55,7 +55,7 @@ export const createAnalystWOW = createAsyncThunk(
 export const analystSlice = createSlice({
   name: 'analystWOW',
   initialState: {
-    fridayTask: null,
+    analystData: null,
     isFetching: false,
     isSuccess: false,
     isError: false,
@@ -65,7 +65,7 @@ export const analystSlice = createSlice({
       state.isError = false;
       state.isSuccess = false;
       state.isFetching = false;
-      state.fridayTask = null;
+      state.analystData = null;
 
       return state;
     },
@@ -75,7 +75,7 @@ export const analystSlice = createSlice({
   {
     [updateAnalystWOW.fulfilled]: (state, { payload }) => {
       payload.range = JSON.parse(payload.range)
-      state.fridayTask = payload;
+      state.analystData = payload;
       state.isFetching = false;
       state.isSuccess = true;
 
@@ -93,7 +93,7 @@ export const analystSlice = createSlice({
     [getAnalystWOW.fulfilled]: (state, { payload }) => {
 
       payload.range = JSON.parse(payload.range)
-      state.fridayTask = payload;
+      state.analystData = payload;
 
       state.isFetching = false;
       state.isSuccess = true;
