@@ -10,6 +10,7 @@ import AnalystPage from './features/analystWOW/pages/analyst_wow_page';
 import FridayTaskPage from './features/fridayTask/pages/friday_task_page';
 import DailyTaskPageList from './features/dailyTask/pages/daily_task_page_list';
 import DailyTaskPage from './features/dailyTask/pages/daily_task_page';
+import CreateDailyTaskPage from './features/dailyTask/pages/create_daily_task_page';
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
             {/* daily task routes */}
             <Route path='dailyTask' element={<DailyTaskPageList />} />
             <Route path='dailyTask/:id' element={<DailyTaskPage />} />
+            <Route path='dailyTask/create' element={<CreateDailyTaskPage />} />
+
 
 
 

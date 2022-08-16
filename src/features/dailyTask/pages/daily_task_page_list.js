@@ -26,14 +26,19 @@ const DailyTaskPageList = () => {
             dispatch(getDailyTask())
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dailyTaskList]);
+    }, [dailyTaskList, dispatch]);
 
 
     return dailyTaskList === null ? <div>
         Loading
     </div> :
-        <div className="dailyTask-container">
+        <div className="dailyTask-container">{
+            console.log(dailyTaskList)
+        }
 
+            <div className="route-item" onClick={() => navigate('/dailyTask/create')} >
+                Create daily task
+            </div><br />
             {
                 dailyTaskList.map((item) => {
 

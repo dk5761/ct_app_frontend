@@ -79,7 +79,7 @@ export const dailyTaskSlice = createSlice({
         [updateDailyTask.fulfilled]: (state, { payload }) => {
 
             const x = current(state).dailyTaskList
-            state.dailyTaskList = x.map(obj => [payload.item].find(o => o.id === obj.id) || obj);
+            state.dailyTaskList = x.map(obj => [payload.task].find(o => o.id === obj.id) || obj);
             state.isFetching = false;
             state.isSuccess = true;
 
@@ -117,12 +117,17 @@ export const dailyTaskSlice = createSlice({
             state.isFetching = true;
         },
         [createDailyTask.fulfilled]: (state, { payload }) => {
+            // adding the returned item
+            const curr_dailyTaskList = current(state).dailyTaskList
+            const daily_dailyTaskList = [...curr_dailyTaskList]
+            daily_dailyTaskList.push(payload.task)
+            // as the array is object immutable
+            // creating a new array and adding the item to it.
             state.isFetching = false;
             state.isSuccess = true;
-            state.dailyTaskList = payload
+            state.dailyTaskList = daily_dailyTaskList
 
-            state.email = payload.email;
-            state.username = payload.name;
+
         },
         [createDailyTask.rejected]: (state) => {
             state.dailyTaskList = null;

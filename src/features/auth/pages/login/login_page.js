@@ -11,7 +11,7 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const [csslId, setCsslId] = useState("");
   const [password, setPassword] = useState("");
-  const { isSuccess, isError, } = useSelector(
+  const { isSuccess, isError, token } = useSelector(
     userSelector
   );
 
@@ -34,7 +34,13 @@ const LoginScreen = () => {
       dispatch(clearState());
       navigate('/')
     }
-  }, [isError, isSuccess]);
+
+    if (token !== null) {
+      navigate("/")
+    }
+  }, [dispatch, isError, isSuccess, navigate, token]);
+
+
 
 
   return <div className="login-container">
