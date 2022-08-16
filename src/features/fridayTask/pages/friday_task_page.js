@@ -4,6 +4,7 @@ import './fridayTask_style.css'
 import { useDispatch, useSelector } from "react-redux";
 // import { clearState, loginUser, userSelector } from "../../auth_slice";
 import { fridayTaskSelector, getFridayTask, updateFridayTask } from "../friday_task_slice";
+import CustomButton from "../../../components/customButton/customButton";
 
 const FridayTaskPage = () => {
 
@@ -49,18 +50,17 @@ const FridayTaskPage = () => {
         <div className="fridayTask-container">
 
 
-            <input type={"button"} value={editing ? "Disable Editing Ranges" : "Enable Editing Ranges"} onClick={() => setEditing(!editing)} />
 
+            <CustomButton value={editing ? "Disable Editing Ranges" : "Enable Editing Range"} onClick={() => setEditing(!editing)} />
 
-            <div className="info-container">
-                <img src="" className="info-image" alt="" />
-                Please enter the ranges for parameters in the mentioned format: A:Z, AA:AZ, etc.
+            <div className="information-header">
+                Please Enable editing to update the previous records:
             </div>
             <CustomTextField labelText={"Recording"} value={data.recording} handleOnChange={onChangeHandler} name="recording" disabled={editing ? false : true} />
             <CustomTextField labelText={"Presentation"} value={data.presentation} handleOnChange={onChangeHandler} name={"presentation"} disabled={editing ? false : true} />
             <CustomTextField labelText={"agedCases"} value={data.agedCases} handleOnChange={onChangeHandler} name={"agedCases"} disabled={editing ? false : true} />
 
-            <button className="btn-class" onClick={handleOnSubmit}>Submit</button>
+            <CustomButton value={"Submit"} onClick={handleOnSubmit} />
 
 
         </div>

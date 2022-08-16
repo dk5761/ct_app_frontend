@@ -3,6 +3,7 @@ import CustomTextField from "../../../components/customTextField/customTextField
 import './analyst_wow_style.css'
 import { useDispatch, useSelector } from "react-redux";
 import { analystSelector, getAnalystWOW, updateAnalystWOW } from "../analyst_wow_slice";
+import CustomButton from "../../../components/customButton/customButton";
 
 const AnalystPage = () => {
 
@@ -13,7 +14,6 @@ const AnalystPage = () => {
     analystSelector
   );
 
-  console.log(analystData)
 
   const [excelLink, setExcelLink] = useState("");
   const [editing, setEditing] = useState(false);
@@ -78,10 +78,10 @@ const AnalystPage = () => {
       <CustomTextField labelText={"Excel Script Link"} value={excelLink} handleOnChange={setExcelLink} disabled={true} />
       <div className="info-container">
         <img src="" className="info-image" alt="" />
-        Please enter the link to Analyst WOW Excel.
+        Please enter the link to Analyst WOW Excel APP Script (only edit if new script has been deployed).
       </div>
 
-      <input type={"button"} value={editing ? "Disable Editing Ranges" : "Enable Editing Ranges"} onClick={() => setEditing(!editing)} />
+      <CustomButton value={editing ? "Disable Editing Ranges" : "Enable Editing Range"} onClick={() => setEditing(!editing)} />
 
 
       <div className="info-container">
@@ -101,7 +101,7 @@ const AnalystPage = () => {
       <CustomTextField labelText={"Late Login"} value={range.lateLogins} handleOnChange={onChangeHandler} name={"lateLogins"} disabled={editing ? false : true} />
       <CustomTextField labelText={"Coverage"} value={range.coverage} handleOnChange={onChangeHandler} name={"coverage"} disabled={editing ? false : true} />
 
-      <button className="btn-class" onClick={handleOnSubmit}>Submit</button>
+      <CustomButton value={"Submit"} onClick={handleOnSubmit} style={{ "margin-bottom": "50px" }} />
 
 
     </div>

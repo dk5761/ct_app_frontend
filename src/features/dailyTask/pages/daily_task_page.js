@@ -4,6 +4,7 @@ import './dailyTask_style.css'
 import { useDispatch } from "react-redux";
 import { updateDailyTask } from "../daily_task_slice";
 import { useLocation, useNavigate } from 'react-router-dom';
+import CustomButton from "../../../components/customButton/customButton";
 
 const DailyTaskPage = () => {
 
@@ -42,24 +43,13 @@ const DailyTaskPage = () => {
 
 
     return <div className="dailyTask-container">
-        {
-            console.log(state)
-        }
 
-        <input type={"button"} value={editing ? "Disable Editing Ranges" : "Enable Editing Ranges"} onClick={() => setEditing(!editing)} />
+        <CustomButton value={editing ? "Disable Editing Ranges" : "Enable Editing Range"} onClick={() => setEditing(!editing)} />
 
-
-        <div className="info-container">
-            <img src="" className="info-image" alt="" />
-            Please enter the ranges for parameters in the mentioned format: A:Z, AA:AZ, etc.
-        </div>
         <CustomTextField labelText={"title"} value={data.title} handleOnChange={onChangeHandler} name="title" disabled={editing ? false : true} />
         <CustomTextField labelText={"imageUrl"} value={data.imageUrl} handleOnChange={onChangeHandler} name={"imageUrl"} disabled={editing ? false : true} />
         <CustomTextField labelText={"url"} value={data.url} handleOnChange={onChangeHandler} name={"url"} disabled={editing ? false : true} />
-
-        <button className="btn-class" onClick={handleOnSubmit}>Submit</button>
-
-
+        <CustomButton value={"Submit"} onClick={handleOnSubmit} style={{ "justify-self": "center" }} />
     </div>
 }
 

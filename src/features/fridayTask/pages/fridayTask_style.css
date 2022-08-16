@@ -1,10 +1,10 @@
-.analyst-container {
-    margin-top: 50px;
+.fridayTask-container {
     display: flex;
     flex-direction: column;
     padding: 12px;
 }
 
-.btn-class {
-    margin: 20px;
+.information-header {
+    margin-bottom: 10px;
+    font-weight: 700;
 }

@@ -4,6 +4,7 @@ import './login_page.css'
 import { useDispatch, useSelector } from "react-redux";
 import { clearState, loginUser, userSelector } from "../../auth_slice";
 import { useNavigate } from 'react-router-dom';
+import CustomButton from "../../../../components/customButton/customButton";
 
 const LoginScreen = () => {
 
@@ -46,7 +47,7 @@ const LoginScreen = () => {
   return <div className="login-container">
     <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={(evt) => setCsslId(evt.target.value)} />
     <CustomTextField labelText={"Password"} value={password} handleOnChange={(evt) => setPassword(evt.target.value)} />
-    <button className="btn-class" onClick={handleOnSubmit}>Submit</button>
+    <CustomButton value={"Submit"} onClick={handleOnSubmit} />
   </div>
 }
 

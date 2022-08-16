@@ -1,0 +1,14 @@
+.btn-class {
+    margin: 10px;
+    max-width: 420px;
+    width: 220px;
+    padding: 7px;
+    border-radius: 8px;
+    border: 1px solid grey;
+    background-color: #ececee;
+}
+
+
+.btn-class:hover {
+    background-color: #d8d8ddd0;
+}

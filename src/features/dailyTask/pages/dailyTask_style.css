@@ -1,10 +1,28 @@
 .dailyTask-container {
-    margin-top: 50px;
+
     display: flex;
     flex-direction: column;
     padding: 12px;
+    align-items: center;
 }
 
-.btn-class {
-    margin: 20px;
+
+.dt-item-container {
+    border-radius: 12px;
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+    min-width: 300px;
+
+}
+
+.img-delete-route {
+    width: 30px;
+    height: 30px;
+
 }

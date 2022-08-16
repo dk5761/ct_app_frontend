@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { dailyTaskSelector, getDailyTask } from "../daily_task_slice";
 import { useNavigate } from 'react-router-dom';
 
-
 const DailyTaskPageList = () => {
 
     const dispatch = useDispatch();
@@ -28,6 +27,10 @@ const DailyTaskPageList = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dailyTaskList, dispatch]);
 
+    const handleOnDelete = (id) => {
+
+    }
+
 
     return dailyTaskList === null ? <div>
         Loading
@@ -36,15 +39,22 @@ const DailyTaskPageList = () => {
             console.log(dailyTaskList)
         }
 
-            <div className="route-item" onClick={() => navigate('/dailyTask/create')} >
+            <div className="dt-item-container" onClick={() => navigate('/dailyTask/create')} >
                 Create daily task
             </div><br />
+            <div className="information-header">
+                Following are the Existing Daily Tasks:
+            </div>
+
             {
                 dailyTaskList.map((item) => {
 
-                    return <div className="route-item" onClick={() => itemHandler(`/dailyTask/${item.id}`, item)} key={item.id}>
-                        {item.title}
-                    </div>
+                    return <div style={{ display: "flex", alignItems: 'center', paddingLeft: "12px" }}>
+                        <div className="dt-item-container" onClick={() => itemHandler(`/dailyTask/${item.id}`, item)} key={item.id}>
+                            <div className="item-text">{item.title}</div>
+
+                        </div>
+                        <img src={require("../../../assets/images/delete.png")} alt="delete" className="img-delete-route" onClick={handleOnDelete} /></div>
 
 
 
