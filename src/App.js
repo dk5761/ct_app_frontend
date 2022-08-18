@@ -22,7 +22,7 @@ function App() {
 
 
           <Route exact path="/register" element={<RegisterScreen />} />
-          <Route exact path='/' element={<PrivateRoute />}>
+          <Route exact  element={<PrivateRoute />}>
             <Route exact path='/' element={<RouteHolder />} />
             {/* excel routes */}
             <Route path='analyst' element={<AnalystPage />} />

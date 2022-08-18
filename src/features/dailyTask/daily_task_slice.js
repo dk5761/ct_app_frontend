@@ -13,8 +13,8 @@ export const getDailyTask = createAsyncThunk(
 
             return response.data
         } catch (e) {
-            console.log(e)
-            thunkAPI.rejectWithValue(e.response.data);
+            console.log('Error', e);
+            return thunkAPI.rejectWithValue(e);
         }
     }
 );
@@ -30,9 +30,9 @@ export const updateDailyTask = createAsyncThunk(
 
 
             return response.data
-        } catch (e) {
-            console.log('Error', e.response.data);
-            thunkAPI.rejectWithValue(e.response.data);
+        } catch (e) { 
+            console.log('Error', e);
+            return thunkAPI.rejectWithValue(e);
         }
     }
 );
@@ -46,8 +46,8 @@ export const createDailyTask = createAsyncThunk(
 
             return response.data
         } catch (e) {
-            console.log('Error', e.response.data);
-            thunkAPI.rejectWithValue(e.response.data);
+            console.log('Error', e);
+            return thunkAPI.rejectWithValue(e);
         }
     }
 );

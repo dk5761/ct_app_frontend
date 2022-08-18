@@ -12,13 +12,15 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const [csslId, setCsslId] = useState("");
   const [password, setPassword] = useState("");
-  const { isSuccess, isError, token } = useSelector(
+  const { isSuccess, isError, token, errorMessage } = useSelector(
     userSelector
   );
-
+  const [isShown, setIsShown] = useState(true);
+  
 
 
   const handleOnSubmit = () => {
+    
     dispatch(loginUser({
       email: csslId,
       password: password
@@ -39,17 +41,26 @@ const LoginScreen = () => {
     if (token !== null) {
       navigate("/")
     }
+
+    setIsShown(true)
+
   }, [dispatch, isError, isSuccess, navigate, token]);
 
 
+  if(isError){
+    setTimeout(() => {
+      setIsShown(false);
+    }, 3000);
+  }
 
 
   return <div className="login-container">
     <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={(evt) => setCsslId(evt.target.value)} />
-    <CustomTextField labelText={"Password"} value={password} handleOnChange={(evt) => setPassword(evt.target.value)} />
+    <CustomTextField type="password" labelText={"Password"} value={password} handleOnChange={(evt) => setPassword(evt.target.value)}  />
     <CustomButton value={"Submit"} onClick={handleOnSubmit} />
     {
-      isError !== null ? <p>{isError}</p> : null
+      isError !== null ? isShown ? <p>{errorMessage}</p> : null
+     : null
     }
   </div>
 }

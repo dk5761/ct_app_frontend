@@ -1,4 +1,4 @@
-input[type=text] {
+.textfield{
   max-width: 420px;
   border: 2px solid #aaa;
   border-radius: 4px;
@@ -10,7 +10,7 @@ input[type=text] {
   width: 100%;
 }
 
-input[type=text]:focus {
+.textfield:focus {
   border-color: dodgerBlue;
   box-shadow: 0 0 8px 0 dodgerBlue;
 }

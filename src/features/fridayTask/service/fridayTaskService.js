@@ -15,8 +15,8 @@ const getFridayTask = async (token) => {
         })
 
     } catch (error) {
-        console.log(error);
-        throw Error(error.message);
+        console.log(error); 
+        throw error.response.data
     }
 };
 
@@ -26,8 +26,8 @@ const createFridayTask = async (recording, presentation, agedCases) => {
             recording, presentation, agedCases
         });
     } catch (error) {
-        console.log(error);
-        throw Error(error.message);
+        console.log(error); 
+        throw error.response.data
     }
 };
 
@@ -44,8 +44,8 @@ const updateFridayTask = async (data, token) => {
             });
 
     } catch (error) {
-        console.log(error);
-        throw Error(error.message);
+        console.log(error); 
+        throw error.response.data
     }
 
 };

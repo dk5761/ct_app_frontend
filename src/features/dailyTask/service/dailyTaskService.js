@@ -15,8 +15,8 @@ const getDailyTask = async (token) => {
         })
 
     } catch (error) {
-        console.log(error);
-        throw Error(error.message);
+        console.log(error); 
+        throw error.response.data
     }
 };
 
@@ -34,7 +34,7 @@ const createDailyTask = async ({ title, imageUrl, url }, token) => {
 
     } catch (error) {
         console.log(error);
-        throw Error(error.message);
+        throw error.response.data
     }
 };
 
@@ -51,7 +51,7 @@ const updateDailyTask = async ({ id, data }, token) => {
 
     } catch (error) {
         console.log(error);
-        throw Error(error.message);
+        throw error.response.data
     }
 
 };

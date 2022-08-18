@@ -24,7 +24,7 @@ export const registerUser = createAsyncThunk(
       return response.data
     } catch (e) {
       console.log('Error', e);
-      thunkAPI.rejectWithValue(JSON.parse(e));
+      return thunkAPI.rejectWithValue(e);
     }
   }
 );
@@ -43,7 +43,8 @@ export const userSlice = createSlice({
     isSuccess: false,
     isError: false,
     errorMessage: '',
-    isAuthenticated: false
+    isAuthenticated: false,
+    position: null
   },
   reducers: {
     clearState: (state) => {
@@ -64,6 +65,7 @@ export const userSlice = createSlice({
       state.isError = false;
       state.errorMessage = '';
       state.isAuthenticated = false;
+      state.position = null;
     }
   },
   extraReducers:
@@ -76,11 +78,15 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.isSuccess = true;
       state.isAuthenticated = true;
+      state.position = payload.user.position;
+
 
     },
     [registerUser.pending]: (state) => {
       state.isFetching = true;
       state.isAuthenticated = false;
+      state.isError = false;
+      
 
     },
     [registerUser.rejected]: (state, { payload }) => {
@@ -98,6 +104,8 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.isSuccess = true;
       state.isAuthenticated = true;
+      state.position = payload.user.position;
+
       return state;
     },
     [loginUser.rejected]: (state, { payload }) => {
@@ -111,6 +119,7 @@ export const userSlice = createSlice({
     [loginUser.pending]: (state) => {
       state.isFetching = true;
       state.isAuthenticated = false;
+      state.isError = false;
 
     },
     //   [fetchUserBytoken.pending]: (state) => {

@@ -3,6 +3,7 @@ import './dailyTask_style.css'
 import { useDispatch, useSelector } from "react-redux";
 import { dailyTaskSelector, getDailyTask } from "../daily_task_slice";
 import { useNavigate } from 'react-router-dom';
+import { userSelector } from "../../auth/auth_slice";
 
 const DailyTaskPageList = () => {
 
@@ -13,6 +14,8 @@ const DailyTaskPageList = () => {
     const { dailyTaskList } = useSelector(
         dailyTaskSelector
     );
+
+    const {position} = useSelector(userSelector)
 
     const itemHandler = (path, state) => {
 
@@ -39,9 +42,14 @@ const DailyTaskPageList = () => {
             console.log(dailyTaskList)
         }
 
-            <div className="dt-item-container" onClick={() => navigate('/dailyTask/create')} >
-                Create daily task
-            </div><br />
+        {    position < 2 ? null:
+            <>
+              <div className="dt-item-container" onClick={() => navigate('/dailyTask/create')} >
+                        Create daily task
+              </div><br />
+            </>
+        }
+            
             <div className="information-header">
                 Following are the Existing Daily Tasks:
             </div>
@@ -49,8 +57,8 @@ const DailyTaskPageList = () => {
             {
                 dailyTaskList.map((item) => {
 
-                    return <div style={{ display: "flex", alignItems: 'center', paddingLeft: "12px" }}>
-                        <div className="dt-item-container" onClick={() => itemHandler(`/dailyTask/${item.id}`, item)} key={item.id}>
+                    return <div style={{ display: "flex", alignItems: 'center', paddingLeft: "12px" }}  key={item.id}>
+                        <div className="dt-item-container" onClick={() => itemHandler(`/dailyTask/${item.id}`, item)}>
                             <div className="item-text">{item.title}</div>
 
                         </div>

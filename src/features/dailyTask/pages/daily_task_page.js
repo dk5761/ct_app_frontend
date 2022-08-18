@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from "react";
 import CustomTextField from "../../../components/customTextField/customTextField";
 import './dailyTask_style.css'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateDailyTask } from "../daily_task_slice";
 import { useLocation, useNavigate } from 'react-router-dom';
 import CustomButton from "../../../components/customButton/customButton";
+import { userSelector } from "../../auth/auth_slice";
 
 const DailyTaskPage = () => {
 
@@ -18,6 +19,10 @@ const DailyTaskPage = () => {
         imageUrl: state.imageUrl,
         url: state.url
     });
+
+    const {position} = useSelector(userSelector)
+
+
 
     const onChangeHandler = useCallback(
         ({ target: { name, value } }) => setData(state => ({ ...state, [name]: value }), []), []
@@ -37,7 +42,6 @@ const DailyTaskPage = () => {
 
         }
     }
-
 
 
 

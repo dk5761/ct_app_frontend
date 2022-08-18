@@ -13,8 +13,8 @@ export const getAnalystWOW = createAsyncThunk(
 
       return response.data
     } catch (e) {
-      console.log(e)
-      thunkAPI.rejectWithValue(e.response.data);
+      console.log('Error', e);
+      return thunkAPI.rejectWithValue(e);
     }
   }
 );
@@ -29,8 +29,8 @@ export const updateAnalystWOW = createAsyncThunk(
 
       return response.data
     } catch (e) {
-      console.log('Error', e.response.data);
-      thunkAPI.rejectWithValue(e.response.data);
+      console.log('Error', e);
+      return thunkAPI.rejectWithValue(e);
     }
   }
 );
@@ -43,8 +43,8 @@ export const createAnalystWOW = createAsyncThunk(
 
       return response.data
     } catch (e) {
-      console.log('Error', e.response.data);
-      thunkAPI.rejectWithValue(e.response.data);
+      console.log('Error', e);
+      return thunkAPI.rejectWithValue(e);
     }
   }
 );

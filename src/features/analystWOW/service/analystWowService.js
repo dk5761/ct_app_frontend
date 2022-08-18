@@ -14,8 +14,8 @@ const getAnalystWOW = async (token) => {
 
 
     } catch (error) {
-        console.log(error);
-        throw Error(error.message);
+        
+        throw error.response.data
     }
 };
 
@@ -26,7 +26,7 @@ const createAnalystWOW = async (excelLink, range) => {
         }).data;
     } catch (error) {
         console.log(error);
-        throw Error(error.message);
+        throw error.response.data
     }
 };
 
@@ -44,7 +44,7 @@ const updateAnalystWOW = async (data, token) => {
 
     } catch (error) {
         console.log(error);
-        throw Error(error.message);
+        throw error.response.data
     }
 
 };

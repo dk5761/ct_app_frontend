@@ -4,6 +4,7 @@ import './analyst_wow_style.css'
 import { useDispatch, useSelector } from "react-redux";
 import { analystSelector, getAnalystWOW, updateAnalystWOW } from "../analyst_wow_slice";
 import CustomButton from "../../../components/customButton/customButton";
+import { userSelector } from "../../auth/auth_slice";
 
 const AnalystPage = () => {
 
@@ -13,6 +14,8 @@ const AnalystPage = () => {
   const { isSuccess, analystData } = useSelector(
     analystSelector
   );
+
+  const {position} = useSelector(userSelector)
 
 
   const [excelLink, setExcelLink] = useState("");
@@ -76,18 +79,26 @@ const AnalystPage = () => {
   </div> :
     <div className="analyst-container">
       <CustomTextField labelText={"Excel Script Link"} value={excelLink} handleOnChange={setExcelLink} disabled={true} />
-      <div className="info-container">
+      
+
+      {
+        position < 2 ? 
+        null:
+        <>
+        <div className="info-container">
         <img src="" className="info-image" alt="" />
         Please enter the link to Analyst WOW Excel APP Script (only edit if new script has been deployed).
       </div>
-
-      <CustomButton value={editing ? "Disable Editing Ranges" : "Enable Editing Range"} onClick={() => setEditing(!editing)} />
-
-
-      <div className="info-container">
+        <CustomButton value={editing ? "Disable Editing Ranges" : "Enable Editing Range"} onClick={() => setEditing(!editing)} />
+        <div className="info-container">
         <img src="" className="info-image" alt="" />
         Please enter the ranges for parameters in the mentioned format: A:Z, AA:AZ, etc.
       </div>
+        </>
+      }
+
+
+      
       <CustomTextField labelText={"CSAT"} value={range.csat} handleOnChange={onChangeHandler} name="csat" disabled={editing ? false : true} />
 
       <CustomTextField labelText={"Communication"} value={range.communication} handleOnChange={onChangeHandler} name={"communication"} disabled={editing ? false : true} />

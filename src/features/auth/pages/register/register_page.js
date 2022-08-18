@@ -12,6 +12,7 @@ const RegisterScreen = () => {
 
   const [csslId, setCsslId] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -21,10 +22,12 @@ const RegisterScreen = () => {
 
 
   const handleOnSubmit = () => {
-    dispatch(loginUser({
-      email: csslId,
-      password: password
-    }))
+    if(password === password2){
+      dispatch(loginUser({
+        email: csslId,
+        password: password
+      }))
+    }
     // do the auth redux thing
   }
 
@@ -37,13 +40,15 @@ const RegisterScreen = () => {
       dispatch(clearState());
       navigate('/')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, isSuccess, dispatch]);
 
 
 
   return <div className="register-container">
     <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={setCsslId} />
-    <CustomTextField labelText={"Password"} value={password} handleOnChange={setPassword} />
+    <CustomTextField type="password" labelText={"Password"} value={password} handleOnChange={setPassword} />
+    <CustomTextField type="password2" labelText={"Re-Enter Password"} value={password2} handleOnChange={setPassword2} />
     <CustomTextField labelText={"First Name"} value={firstName} handleOnChange={setFirstName} />
     <CustomTextField labelText={"Last Name"} value={lastName} handleOnChange={setLastName} />
     <button className="btn-class" onClick={handleOnSubmit}>Submit</button>
