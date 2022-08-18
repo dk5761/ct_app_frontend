@@ -48,6 +48,9 @@ const LoginScreen = () => {
     <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={(evt) => setCsslId(evt.target.value)} />
     <CustomTextField labelText={"Password"} value={password} handleOnChange={(evt) => setPassword(evt.target.value)} />
     <CustomButton value={"Submit"} onClick={handleOnSubmit} />
+    {
+      isError !== null ? <p>{isError}</p> : null
+    }
   </div>
 }
 

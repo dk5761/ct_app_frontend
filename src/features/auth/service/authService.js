@@ -18,27 +18,27 @@ const register = (csslId, password, firstName, lastName, position) => {
         }
 
         return response.data;
-    }); 
+    });
 };
 
-const login = async(csslId, password) => {
+const login = async (csslId, password) => {
     try {
         const response = await axios
-        .post(API_URL + "login", {
-            csslId,
-            password,
-        })
-        
-        if(response){
+            .post(API_URL + "adminLogin", {
+                csslId,
+                password,
+            })
+
+        if (response) {
             if (response.data.token) {
                 localStorage.setItem("token", JSON.stringify(response.data.token));
             }
         }
         console.log(response)
 
-    return response
+        return response
     } catch (error) {
-        console.log(error)
+        throw error.response.data
     }
 };
 

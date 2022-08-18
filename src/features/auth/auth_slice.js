@@ -6,24 +6,25 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await authService.login(email, password);
+      console.log(response);
       return response.data
     } catch (e) {
-
-      thunkAPI.rejectWithValue(e.response.data);
+      console.log('Error', e);
+      return thunkAPI.rejectWithValue(e);
     }
   }
 );
 
 export const registerUser = createAsyncThunk(
-  'users/login',
+  'users/register',
   async ({ email, password, firstName, lastName, position }, thunkAPI) => {
     try {
       const response = await authService.register(email, password, firstName, lastName, position);
 
       return response.data
     } catch (e) {
-      console.log('Error', e.response.data);
-      thunkAPI.rejectWithValue(e.response.data);
+      console.log('Error', e);
+      thunkAPI.rejectWithValue(JSON.parse(e));
     }
   }
 );
@@ -100,6 +101,7 @@ export const userSlice = createSlice({
       return state;
     },
     [loginUser.rejected]: (state, { payload }) => {
+      console.log(payload.message)
       state.isFetching = false;
       state.isError = true;
       state.isAuthenticated = false;

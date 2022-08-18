@@ -11,4 +11,7 @@ export const store = configureStore({
     fridayTask: fridayTaskSlice.reducer,
     dailyTask: dailyTaskSlice.reducer
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  }),
 });
