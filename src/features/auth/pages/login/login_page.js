@@ -22,15 +22,18 @@ const LoginScreen = () => {
   const handleOnSubmit = () => {
     
     dispatch(loginUser({
-      email: csslId,
+      email: csslId.trim(),
       password: password
     }))
     // do the auth redux thing
   }
 
   useEffect(() => {
+    // removes the error from the screen and reset the state to null
     if (isError) {
-      dispatch(clearState());
+      setTimeout(()=>{
+        dispatch(clearState());
+      }, 10000)
     }
 
     if (isSuccess) {
@@ -46,20 +49,16 @@ const LoginScreen = () => {
 
   }, [dispatch, isError, isSuccess, navigate, token]);
 
-
-  if(isError){
-    setTimeout(() => {
-      setIsShown(false);
-    }, 3000);
-  }
-
-
   return <div className="login-container">
     <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={(evt) => setCsslId(evt.target.value)} />
     <CustomTextField type="password" labelText={"Password"} value={password} handleOnChange={(evt) => setPassword(evt.target.value)}  />
     <CustomButton value={"Submit"} onClick={handleOnSubmit} />
     {
-      isError !== null ? isShown ? <p>{errorMessage}</p> : null
+      isError === true ?  <div className="errorContainer" >       
+            Error: {
+              errorMessage
+            } 
+      </div>
      : null
     }
   </div>

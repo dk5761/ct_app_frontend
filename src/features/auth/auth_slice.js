@@ -48,9 +48,16 @@ export const userSlice = createSlice({
   },
   reducers: {
     clearState: (state) => {
-      state.isError = false;
-      state.isSuccess = false;
+      state.token = null;
+      state.csslId = '';
+      state.firstName = "";
+      state.lastName = "";
       state.isFetching = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.errorMessage = '';
+      state.isAuthenticated = false;
+      state.position = null;
 
       return state;
     },
