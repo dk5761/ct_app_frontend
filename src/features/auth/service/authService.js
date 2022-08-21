@@ -6,19 +6,21 @@ const API_URL = "http://localhost:3001/user/";
 
 
 const register = (csslId, password, firstName, lastName, position) => {
-    try{return axios.post(API_URL + "register", {
-        csslId,
-        password,
-        firstName,
-        lastName,
-        position
-    }).then((response) => {
-        if (response.data.token) {
-            localStorage.setItem("token", JSON.stringify(response.data.token));
-        }
+    try {
+        return axios.post(API_URL + "register", {
+            csslId,
+            password,
+            firstName,
+            lastName,
+            position
+        }).then((response) => {
+            if (response.data.token) {
+                localStorage.setItem("token", JSON.stringify(response.data.token));
+            }
 
-        return response.data;
-    });}catch(error){
+            return response.data;
+        });
+    } catch (error) {
         throw error.response.data
     }
 };
@@ -36,7 +38,6 @@ const login = async (csslId, password) => {
                 localStorage.setItem("token", JSON.stringify(response.data.token));
             }
         }
-        console.log(response)
 
         return response
     } catch (error) {

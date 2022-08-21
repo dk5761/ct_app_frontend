@@ -1,11 +1,10 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import CustomTextField from "../../../components/customTextField/customTextField";
 import './dailyTask_style.css'
 import { useDispatch, useSelector } from "react-redux";
-import { updateDailyTask } from "../daily_task_slice";
+import { dailyTaskSelector, updateDailyTask, clearState } from "../daily_task_slice";
 import { useLocation, useNavigate } from 'react-router-dom';
 import CustomButton from "../../../components/customButton/customButton";
-import { userSelector } from "../../auth/auth_slice";
 
 const DailyTaskPage = () => {
 
@@ -20,7 +19,8 @@ const DailyTaskPage = () => {
         url: state.url
     });
 
-    const {position} = useSelector(userSelector)
+
+    const { isError, errorMessage } = useSelector(dailyTaskSelector);
 
 
 
@@ -43,17 +43,35 @@ const DailyTaskPage = () => {
         }
     }
 
+    useEffect(() => {
+
+        if (isError) {
+            setTimeout(() => {
+                dispatch(clearState());
+            }, 10000)
+        }
+
+    }, [dispatch, isError])
 
 
 
     return <div className="dailyTask-container">
 
-        <CustomButton value={editing ? "Disable Editing Ranges" : "Enable Editing Range"} onClick={() => setEditing(!editing)} />
+        <CustomButton value={editing ? "Disable Editing " : "Enable Editing "} onClick={() => setEditing(!editing)} />
 
         <CustomTextField labelText={"title"} value={data.title} handleOnChange={onChangeHandler} name="title" disabled={editing ? false : true} />
         <CustomTextField labelText={"imageUrl"} value={data.imageUrl} handleOnChange={onChangeHandler} name={"imageUrl"} disabled={editing ? false : true} />
         <CustomTextField labelText={"url"} value={data.url} handleOnChange={onChangeHandler} name={"url"} disabled={editing ? false : true} />
         <CustomButton value={"Submit"} onClick={handleOnSubmit} style={{ "justify-self": "center" }} />
+
+        {
+            isError === true ? <div className="errorContainer" >
+                Error: {
+                    errorMessage
+                }
+            </div>
+                : null
+        }
     </div>
 }
 

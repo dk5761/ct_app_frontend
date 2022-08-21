@@ -56,7 +56,6 @@ export const userSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.errorMessage = '';
-      state.isAuthenticated = false;
       state.position = null;
 
       return state;
@@ -73,6 +72,7 @@ export const userSlice = createSlice({
       state.errorMessage = '';
       state.isAuthenticated = false;
       state.position = null;
+      state.isAdmin = false;
     }
   },
   extraReducers:
@@ -86,6 +86,7 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.isAuthenticated = true;
       state.position = payload.user.position;
+      state.isAdmin = payload.user.isAdmin
 
 
     },
@@ -93,7 +94,7 @@ export const userSlice = createSlice({
       state.isFetching = true;
       state.isAuthenticated = false;
       state.isError = false;
-      
+
 
     },
     [registerUser.rejected]: (state, { payload }) => {
@@ -112,11 +113,12 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.isAuthenticated = true;
       state.position = payload.user.position;
+      state.isAdmin = payload.user.isAdmin
+
 
       return state;
     },
     [loginUser.rejected]: (state, { payload }) => {
-      console.log(payload.message)
       state.isFetching = false;
       state.isError = true;
       state.isAuthenticated = false;

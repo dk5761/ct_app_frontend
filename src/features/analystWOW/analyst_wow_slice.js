@@ -59,6 +59,7 @@ export const analystSlice = createSlice({
     isFetching: false,
     isSuccess: false,
     isError: false,
+    errorMessage: null
   },
   reducers: {
     clearState: (state) => {
@@ -85,10 +86,11 @@ export const analystSlice = createSlice({
 
     },
     [updateAnalystWOW.rejected]: (state, { payload }) => {
+      console.log(payload.message)
       state.isFetching = false;
       state.isError = true;
-      state.errorMessage = payload.message;
 
+      state.errorMessage = payload.message;
     },
     [getAnalystWOW.fulfilled]: (state, { payload }) => {
 
@@ -100,10 +102,11 @@ export const analystSlice = createSlice({
       return state;
     },
     [getAnalystWOW.rejected]: (state, { payload }) => {
+      console.log(payload.message)
       state.isFetching = false;
       state.isError = true;
 
-      state.errorMessage = payload;
+      state.errorMessage = payload.message;
     },
     // [getAnalystWOW.pending]: (state) => {
     //   state.isFetching = true;

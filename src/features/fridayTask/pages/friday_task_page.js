@@ -3,7 +3,7 @@ import CustomTextField from "../../../components/customTextField/customTextField
 import './fridayTask_style.css'
 import { useDispatch, useSelector } from "react-redux";
 // import { clearState, loginUser, userSelector } from "../../auth_slice";
-import { fridayTaskSelector, getFridayTask, updateFridayTask } from "../friday_task_slice";
+import { fridayTaskSelector, getFridayTask, updateFridayTask, clearState } from "../friday_task_slice";
 import CustomButton from "../../../components/customButton/customButton";
 
 const FridayTaskPage = () => {
@@ -11,7 +11,7 @@ const FridayTaskPage = () => {
     const dispatch = useDispatch();
     // const navigate = useNavigate();
 
-    const { isSuccess, fridayTask } = useSelector(
+    const { fridayTask, isError, errorMessage } = useSelector(
         fridayTaskSelector
     );
 
@@ -35,6 +35,13 @@ const FridayTaskPage = () => {
 
 
     useEffect(() => {
+        if (isError) {
+            setTimeout(() => {
+                dispatch(clearState());
+            }, 10000)
+        }
+
+
         if (fridayTask === null) {
             dispatch(getFridayTask())
         } else {
@@ -51,7 +58,7 @@ const FridayTaskPage = () => {
 
 
 
-            <CustomButton value={editing ? "Disable Editing Ranges" : "Enable Editing Range"} onClick={() => setEditing(!editing)} />
+            <CustomButton value={editing ? "Disable Editing" : "Enable Editing"} onClick={() => setEditing(!editing)} />
 
             <div className="information-header">
                 Please Enable editing to update the previous records:
@@ -61,6 +68,14 @@ const FridayTaskPage = () => {
             <CustomTextField labelText={"agedCases"} value={data.agedCases} handleOnChange={onChangeHandler} name={"agedCases"} disabled={editing ? false : true} />
 
             <CustomButton value={"Submit"} onClick={handleOnSubmit} />
+            {
+                isError === true ? <div className="errorContainer" >
+                    Error: {
+                        errorMessage
+                    }
+                </div>
+                    : null
+            }
 
 
         </div>

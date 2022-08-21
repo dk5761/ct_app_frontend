@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CustomTextField from "../../../components/customTextField/customTextField";
 import './dailyTask_style.css'
-import { useDispatch } from "react-redux";
-import { createDailyTask } from "../daily_task_slice";
+import { useDispatch, useSelector } from "react-redux";
+import { createDailyTask, clearState, dailyTaskSelector } from "../daily_task_slice";
 import { useNavigate } from 'react-router-dom';
 import CustomButton from "../../../components/customButton/customButton";
 
@@ -21,6 +21,9 @@ const CreateDailyTaskPage = () => {
         ({ target: { name, value } }) => setData(state => ({ ...state, [name]: value }), []), []
 
     );
+
+    const { isError, errorMessage } = useSelector(dailyTaskSelector);
+
     const handleOnSubmit = () => {
 
         try {
@@ -30,6 +33,16 @@ const CreateDailyTaskPage = () => {
 
         }
     }
+
+    useEffect(() => {
+
+        if (isError) {
+            setTimeout(() => {
+                dispatch(clearState());
+            }, 10000)
+        }
+
+    }, [dispatch, isError])
 
 
 
@@ -46,6 +59,14 @@ const CreateDailyTaskPage = () => {
 
         <CustomButton value={"Submit"} onClick={handleOnSubmit} />
 
+        {
+            isError === true ? <div className="errorContainer" >
+                Error: {
+                    errorMessage
+                }
+            </div>
+                : null
+        }
 
     </div>
 }

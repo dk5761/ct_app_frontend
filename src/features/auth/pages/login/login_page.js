@@ -15,12 +15,11 @@ const LoginScreen = () => {
   const { isSuccess, isError, token, errorMessage } = useSelector(
     userSelector
   );
-  const [isShown, setIsShown] = useState(true);
-  
+
 
 
   const handleOnSubmit = () => {
-    
+
     dispatch(loginUser({
       email: csslId.trim(),
       password: password
@@ -31,13 +30,13 @@ const LoginScreen = () => {
   useEffect(() => {
     // removes the error from the screen and reset the state to null
     if (isError) {
-      setTimeout(()=>{
+      setTimeout(() => {
         dispatch(clearState());
       }, 10000)
     }
 
     if (isSuccess) {
-      dispatch(clearState());
+      // dispatch(clearState());
       navigate('/')
     }
 
@@ -45,21 +44,20 @@ const LoginScreen = () => {
       navigate("/")
     }
 
-    setIsShown(true)
 
   }, [dispatch, isError, isSuccess, navigate, token]);
 
   return <div className="login-container">
     <CustomTextField labelText={"CsslId"} value={csslId} handleOnChange={(evt) => setCsslId(evt.target.value)} />
-    <CustomTextField type="password" labelText={"Password"} value={password} handleOnChange={(evt) => setPassword(evt.target.value)}  />
+    <CustomTextField type="password" labelText={"Password"} value={password} handleOnChange={(evt) => setPassword(evt.target.value)} />
     <CustomButton value={"Submit"} onClick={handleOnSubmit} />
     {
-      isError === true ?  <div className="errorContainer" >       
-            Error: {
-              errorMessage
-            } 
+      isError === true ? <div className="errorContainer" >
+        Error: {
+          errorMessage
+        }
       </div>
-     : null
+        : null
     }
   </div>
 }

@@ -30,7 +30,7 @@ export const updateDailyTask = createAsyncThunk(
 
 
             return response.data
-        } catch (e) { 
+        } catch (e) {
             console.log('Error', e);
             return thunkAPI.rejectWithValue(e);
         }
@@ -52,6 +52,23 @@ export const createDailyTask = createAsyncThunk(
     }
 );
 
+export const deleteDailyTask = createAsyncThunk(
+    'analystWOW/deleteDailyTask',
+    async (id, thunkAPI) => {
+        try {
+            const reduxStore = store.getState();
+            const response = await dailyTaskService.deleteDailyTask(id, reduxStore.user.token);
+
+            return response.data
+        } catch (e) {
+            console.log('Error', e);
+            return thunkAPI.rejectWithValue(e);
+        }
+    }
+);
+
+
+
 
 
 
@@ -62,6 +79,7 @@ export const dailyTaskSlice = createSlice({
         isFetching: false,
         isSuccess: false,
         isError: false,
+        errorMessage: null
     },
     reducers: {
         clearState: (state) => {
@@ -89,10 +107,11 @@ export const dailyTaskSlice = createSlice({
 
         },
         [updateDailyTask.rejected]: (state, { payload }) => {
+            // console.log(payload.message)
             state.isFetching = false;
             state.isError = true;
-            state.errorMessage = payload;
 
+            state.errorMessage = payload.message;
         },
         [getDailyTask.fulfilled]: (state, { payload }) => {
 
@@ -104,10 +123,11 @@ export const dailyTaskSlice = createSlice({
             return state;
         },
         [getDailyTask.rejected]: (state, { payload }) => {
+            // console.log(payload.message)
             state.isFetching = false;
             state.isError = true;
 
-            state.errorMessage = payload;
+            state.errorMessage = payload.message;
         },
         [getDailyTask.pending]: (state) => {
             state.isFetching = true;
@@ -129,10 +149,35 @@ export const dailyTaskSlice = createSlice({
 
 
         },
-        [createDailyTask.rejected]: (state) => {
-            state.dailyTaskList = null;
+        [createDailyTask.rejected]: (state, { payload }) => {
+            // console.log(payload.message)
             state.isFetching = false;
             state.isError = true;
+
+            state.errorMessage = payload.message;
+        },
+        [deleteDailyTask.pending]: (state) => {
+            state.isFetching = true;
+        },
+        [deleteDailyTask.fulfilled]: (state, { payload }) => {
+            // adding the returned item
+            const curr_dailyTaskList = current(state).dailyTaskList
+            const new_dailyTaskList = curr_dailyTaskList.filter((item) => item.id !== payload.task.id);
+
+            // as the array is object immutable
+            // creating a new array and adding the item to it.
+            state.isFetching = false;
+            state.isSuccess = true;
+            state.dailyTaskList = new_dailyTaskList
+
+
+        },
+        [deleteDailyTask.rejected]: (state, { payload }) => {
+            // console.log(payload.message)
+            state.isFetching = false;
+            state.isError = true;
+
+            state.errorMessage = payload.message;
         },
     },
 });

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import CustomTextField from "../../../components/customTextField/customTextField";
 import './analyst_wow_style.css'
 import { useDispatch, useSelector } from "react-redux";
-import { analystSelector, getAnalystWOW, updateAnalystWOW } from "../analyst_wow_slice";
+import { analystSelector, getAnalystWOW, updateAnalystWOW, clearState } from "../analyst_wow_slice";
 import CustomButton from "../../../components/customButton/customButton";
 import { userSelector } from "../../auth/auth_slice";
 
@@ -11,11 +11,11 @@ const AnalystPage = () => {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
 
-  const { isSuccess, analystData } = useSelector(
+  const { isSuccess, analystData, isError, errorMessage } = useSelector(
     analystSelector
   );
 
-  const {position} = useSelector(userSelector)
+  const { isAdmin } = useSelector(userSelector)
 
 
   const [excelLink, setExcelLink] = useState("");
@@ -61,6 +61,12 @@ const AnalystPage = () => {
 
   useEffect(() => {
 
+    if (isError) {
+      setTimeout(() => {
+        dispatch(clearState());
+      }, 10000)
+    }
+
     if (analystData === null) {
       dispatch(getAnalystWOW())
     } else {
@@ -79,26 +85,26 @@ const AnalystPage = () => {
   </div> :
     <div className="analyst-container">
       <CustomTextField labelText={"Excel Script Link"} value={excelLink} handleOnChange={setExcelLink} disabled={true} />
-      
+
 
       {
-        position < 2 ? 
-        null:
-        <>
-        <div className="info-container">
-        <img src="" className="info-image" alt="" />
-        Please enter the link to Analyst WOW Excel APP Script (only edit if new script has been deployed).
-      </div>
-        <CustomButton value={editing ? "Disable Editing Ranges" : "Enable Editing Range"} onClick={() => setEditing(!editing)} />
-        <div className="info-container">
-        <img src="" className="info-image" alt="" />
-        Please enter the ranges for parameters in the mentioned format: A:Z, AA:AZ, etc.
-      </div>
-        </>
+        isAdmin ?
+
+          <>
+            <div className="info-container">
+              <img src="" className="info-image" alt="" />
+              Please enter the link to Analyst WOW Excel APP Script (only edit if new script has been deployed).
+            </div>
+            <CustomButton value={editing ? "Disable Editing " : "Enable Editing "} onClick={() => setEditing(!editing)} />
+            <div className="info-container">
+              <img src="" className="info-image" alt="" />
+              Please enter the ranges for parameters in the mentioned format: A:Z, AA:AZ, etc.
+            </div>
+          </> : null
       }
 
 
-      
+
       <CustomTextField labelText={"CSAT"} value={range.csat} handleOnChange={onChangeHandler} name="csat" disabled={editing ? false : true} />
 
       <CustomTextField labelText={"Communication"} value={range.communication} handleOnChange={onChangeHandler} name={"communication"} disabled={editing ? false : true} />
@@ -114,6 +120,14 @@ const AnalystPage = () => {
 
       <CustomButton value={"Submit"} onClick={handleOnSubmit} style={{ "margin-bottom": "50px" }} />
 
+      {
+        isError === true ? <div className="errorContainer" >
+          Error: {
+            errorMessage
+          }
+        </div>
+          : null
+      }
 
     </div>
 }

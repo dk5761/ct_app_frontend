@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import './dailyTask_style.css'
 import { useDispatch, useSelector } from "react-redux";
-import { dailyTaskSelector, getDailyTask } from "../daily_task_slice";
+import { dailyTaskSelector, deleteDailyTask, getDailyTask } from "../daily_task_slice";
 import { useNavigate } from 'react-router-dom';
 import { userSelector } from "../../auth/auth_slice";
 
@@ -15,7 +15,7 @@ const DailyTaskPageList = () => {
         dailyTaskSelector
     );
 
-    const {position} = useSelector(userSelector)
+    const { isAdmin } = useSelector(userSelector)
 
     const itemHandler = (path, state) => {
 
@@ -32,6 +32,7 @@ const DailyTaskPageList = () => {
 
     const handleOnDelete = (id) => {
 
+        dispatch(deleteDailyTask(id))
     }
 
 
@@ -39,17 +40,17 @@ const DailyTaskPageList = () => {
         Loading
     </div> :
         <div className="dailyTask-container">{
-            console.log(dailyTaskList)
+            // console.log(dailyTaskList)
         }
 
-        {    position < 2 ? null:
-            <>
-              <div className="dt-item-container" onClick={() => navigate('/dailyTask/create')} >
+            {isAdmin ?
+                <>
+                    <div className="dt-item-container" onClick={() => navigate('/dailyTask/create')} >
                         Create daily task
-              </div><br />
-            </>
-        }
-            
+                    </div><br />
+                </> : null
+            }
+
             <div className="information-header">
                 Following are the Existing Daily Tasks:
             </div>
@@ -57,12 +58,12 @@ const DailyTaskPageList = () => {
             {
                 dailyTaskList.map((item) => {
 
-                    return <div style={{ display: "flex", alignItems: 'center', paddingLeft: "12px" }}  key={item.id}>
+                    return <div style={{ display: "flex", alignItems: 'center', paddingLeft: "12px" }} key={item.id}>
                         <div className="dt-item-container" onClick={() => itemHandler(`/dailyTask/${item.id}`, item)}>
                             <div className="item-text">{item.title}</div>
 
                         </div>
-                        <img src={require("../../../assets/images/delete.png")} alt="delete" className="img-delete-route" onClick={handleOnDelete} /></div>
+                        <img src={require("../../../assets/images/delete.png")} alt="delete" className="img-delete-route" onClick={() => handleOnDelete(item.id)} /></div>
 
 
 

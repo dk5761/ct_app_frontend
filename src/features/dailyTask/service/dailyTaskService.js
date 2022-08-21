@@ -15,7 +15,7 @@ const getDailyTask = async (token) => {
         })
 
     } catch (error) {
-        console.log(error); 
+        console.log(error);
         throw error.response.data
     }
 };
@@ -57,6 +57,24 @@ const updateDailyTask = async ({ id, data }, token) => {
 };
 
 
+const deleteDailyTask = async (id, token) => {
+    try {
+        return await axios({
+            method: 'DELETE',
+            url: API_URL + "deleteDTask",
+            data: { id },
+            headers: {
+                Authorization: token
+            }
+        })
+
+    } catch (error) {
+        console.log(error);
+        throw error.response.data
+    }
+
+};
+
 
 
 
@@ -64,6 +82,7 @@ const dailyTaskService = {
     getDailyTask,
     createDailyTask,
     updateDailyTask,
+    deleteDailyTask
 };
 
 export default dailyTaskService;
